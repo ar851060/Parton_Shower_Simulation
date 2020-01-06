@@ -10,6 +10,7 @@ const = Cf/(2*math.pi)
 qhard = 1000
 qmax = 2*qhard
 
+# all the function we need
 fun = lambda t,z: (1+pow(z,2))/(t*(1-z))
 gun = lambda z: 2/(1-z)
 Gunz = lambda z: -2*math.log(1-z)
@@ -33,12 +34,16 @@ def main():
             theta1 = (q1/(qhard*math.sqrt(z1*(1-z1))))
         tlist.append(q1)
         zlist.append(theta1)
+        
+    # create the graph of jet mass v.s. angel
     plt.xlabel("jet mass")
     plt.ylabel("angel")
     plt.title("with correction")
     plt.scatter(tlist,zlist)
     plt.show()
     print(sum(tlist)/(idx+1))
+    
+    # create the graph of jet mass v.s. number of events
     # step = 5
     # x = np.arange(0, 600, step)
     # plt.xlim(0 - step, 600 + step)
@@ -47,6 +52,8 @@ def main():
     # plt.ylabel("number of events")
     # plt.title("with correction")
     # plt.show()
+    
+    # create the graph of z v.s. number of events
     # step = 0.01
     # x = np.arange(0, 1, step)
     # plt.xlim(0 - step, 1 + step)
@@ -57,7 +64,7 @@ def main():
     # plt.show()
 
 
-def zmake(q,e):
+def zmake(q,e): # create the maximum and minimum of z
     const = 1-pow(q/e,2)
     if const <= 0:
         return 0.5,0.5
@@ -66,7 +73,7 @@ def zmake(q,e):
         zmax = 0.5*(1+math.sqrt(1-pow(q/e,2)))
         return zmin, zmax
 
-def veto(qp,zmin=0,zmax=0):
+def veto(qp,zmin=0,zmax=0): # doing Veto Algorithm
     zmin0, zmax0 = zmake(qcut, qhard)
     alpha_0=alpha(qcut)
     Iz = (Gunz(zmax0) - Gunz(zmin0))*const*alpha_0
@@ -98,7 +105,7 @@ def veto(qp,zmin=0,zmax=0):
         else:
             return tempq,z
 
-def checking(qp, q1, q2, z1, z2):
+def checking(qp, q1, q2, z1, z2): # checking all variables in constrains
     while (True):
         if q1 + q2 > qp:
             if q1 > q2:
@@ -145,7 +152,7 @@ def checking(qp, q1, q2, z1, z2):
         break
     return q1, q2, z1, z2, eneb, enec
 
-def alpha(mu):
+def alpha(mu): #create alpha constant
     mz = 91.2
     alpha_z = 0.12
     return alpha_z/(1+2*b0*alpha_z*math.log(mu/mz))
