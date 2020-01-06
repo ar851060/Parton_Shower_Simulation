@@ -2,7 +2,7 @@
 I complete this project in Technion in 2018, advised by Prof. Enrique.  
 This project is a model which simulating Parton Shower Scattering after proton-proton colliding in ATLAS.  
 
-First model is Test_5.py.  
+First model is Test_5_pro.py.  
 This model is based on "Monte Carlo and Jet Tutorial" by "Samuel Meehan".  
 It simulates Parton Shower after colliding.  
 
